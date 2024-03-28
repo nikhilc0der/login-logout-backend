@@ -137,7 +137,7 @@ const forgetUser = asyncHandler(async (req, res, next) => {
   if (!user) throw new ApiError(401, "Email Not Found");
   const resetToken = await user.generatePasswordResetToken();
   await user.save({ validateBeforeSave: false });
-  const resetPasswordLink = `http://localhost:3000/update?token=${resetToken}`;
+  const resetPasswordLink = `${process.env.YOUR_CLIENT_URL}/update?token=${resetToken}`;
   const message = `we have received a password reset request. Please use the below link to reset your password\n\n${resetPasswordLink}\n\n this reset password link will be valid only for 10 minutes`;
 
   try {
